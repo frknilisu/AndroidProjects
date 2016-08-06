@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "257999687224",
+    "firebase_url": "https://locatiwit.firebaseio.com",
+    "project_id": "locatiwit",
+    "storage_bucket": "locatiwit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257999687224:android:b982bf09fb6cee71",
+        "android_client_info": {
+          "package_name": "com.example.frkn.twitterlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257999687224-0fsh8f26qm69p5t3sub561lfjtooled5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY-7A8mab6-OFOLDkw9ikewWni6ppfxm4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
