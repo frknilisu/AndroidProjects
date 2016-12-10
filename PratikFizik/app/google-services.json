@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "883701279267",
+    "firebase_url": "https://pratikfizik.firebaseio.com",
+    "project_id": "pratikfizik",
+    "storage_bucket": "pratikfizik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883701279267:android:f65182b328cbe977",
+        "android_client_info": {
+          "package_name": "com.frkn.pratikfizik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883701279267-gt32f74a755l2qh3tb6qm9to746mdsri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCleRAxSibtxBZZYf8zXYoxvF89_Rum9ew"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

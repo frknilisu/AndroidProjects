@@ -1,0 +1,15 @@
+{
+  "chapters" : [ {
+    "id" : 1,
+    "title" : "Fizik Bilimine Giriş",
+    "definition" : "",
+    "imageId" : 2130903040,
+    "yuarel" : "https://www.dropbox.com/s/w5nvoa1n7y1g92m/Chapter1.pdf?dl=1"
+  }, {
+    "id" : 2,
+    "title" : "frknCV",
+    "definition" : "",
+    "imageId" : 2130903040,
+    "yuarel" : "https://www.dropbox.com/s/bi5bbisgcx4l61b/Chapter2.pdf?dl=1"
+  }]
+}
