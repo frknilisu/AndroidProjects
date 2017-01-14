@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/title.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/title.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/wait.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/wait.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas2.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas2.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/drive.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/drive.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/premium.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/premium.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas3.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas3.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas_inf.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas_inf.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas0.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas0.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/buy_gas.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/buy_gas.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/ic_launcher.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/upgrade_app.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/upgrade_app.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas4.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas4.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/gas1.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/gas1.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/ic_action_search.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/ic_action_search.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/free.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/free.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/release/drawable-xhdpi/infinite_gas.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-xhdpi/infinite_gas.png"
+    }
+]

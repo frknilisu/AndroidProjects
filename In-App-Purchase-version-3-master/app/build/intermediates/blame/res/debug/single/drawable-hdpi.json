@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_action_search.png",
+        "source": "/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/src/main/res/drawable-hdpi/ic_action_search.png"
+    }
+]

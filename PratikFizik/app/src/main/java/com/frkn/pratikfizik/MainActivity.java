@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                 Chapter chapter = chapterList.get(position);
                 Toast.makeText(getApplicationContext(), chapter.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
                 if(isLocked(chapter.getChapterId())){
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(YourFragment.newInstance(), null);
+                    ft.commit();
                     System.out.println("you must login");
                     if (mFirebaseUser == null) {
                         // Not logged in, launch the Log In activity
@@ -114,6 +117,25 @@ public class MainActivity extends AppCompatActivity {
 
         takePermissions();
 
+    }
+
+    private void setup() {
+        prepareChapterData();
+        //startDownload();
+        //moveFiles();
+        mAdapter.notifyDataSetChanged();
+
+        // Initialize Firebase Auth and Database Reference
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    private void loadLogInView() {
+        Intent intent = new Intent(this, LogInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private boolean isLocked(int id){
@@ -164,6 +186,102 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    /**********************************************************************************
+     *
+     *                              TAKE PERMISSIONS
+     *
+    *************************************************************************************/
+
+    private void takePermissions() {
+        Log.d("Permission", "takePermissions()");
+        int MyVersion = Build.VERSION.SDK_INT;
+        if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (!checkIfAlreadyhavePermission()) {
+                requestForSpecificPermission();
+            } else {
+                Log.d("Permission", "already have permissions");
+                setup();
+            }
+        } else {
+            setup();
+        }
+    }
+
+    private boolean checkIfAlreadyhavePermission() {
+        for (int i = 0; i < permissions.length; i++) {
+            int result = ContextCompat.checkSelfPermission(this, permissions[i]);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requestForSpecificPermission() {
+        ActivityCompat.requestPermissions(this, permissions, 101);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        boolean flag = true;
+        switch (requestCode) {
+            case 101:
+                for (int i = 0; i < permissions.length; i++) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        //not granted
+                        Log.d("Permission", "No permission: " + permissions[i].toString());
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    //granted
+                    Log.d("Permission", "all permissions are taken");
+                    setup();
+                } else {
+                    Log.d("Permission", "some permission has no");
+                    takePermissions();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**********************************************************************************
+     *
+     *************************************************************************************/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            mFirebaseAuth.signOut();
+            loadLogInView();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**********************************************************************************
+     *
+     *                              Download and Move
+     *
+     *************************************************************************************/
 
     private void startDownload() {
         Log.d("Download", "startDownload()");
@@ -357,103 +475,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void takePermissions() {
-        Log.d("Permission", "takePermissions()");
-        int MyVersion = Build.VERSION.SDK_INT;
-        if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            if (!checkIfAlreadyhavePermission()) {
-                requestForSpecificPermission();
-            } else {
-                Log.d("Permission", "already have permissions");
-                setup();
-            }
-        } else {
-            setup();
-        }
-    }
-
-    private boolean checkIfAlreadyhavePermission() {
-        for (int i = 0; i < permissions.length; i++) {
-            int result = ContextCompat.checkSelfPermission(this, permissions[i]);
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void requestForSpecificPermission() {
-        ActivityCompat.requestPermissions(this, permissions, 101);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        boolean flag = true;
-        switch (requestCode) {
-            case 101:
-                for (int i = 0; i < permissions.length; i++) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        //not granted
-                        Log.d("Permission", "No permission: " + permissions[i].toString());
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) {
-                    //granted
-                    Log.d("Permission", "all permissions are taken");
-                    setup();
-                } else {
-                    Log.d("Permission", "some permission has no");
-                    takePermissions();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    private void setup() {
-        prepareChapterData();
-        //startDownload();
-        //moveFiles();
-        mAdapter.notifyDataSetChanged();
-
-        // Initialize Firebase Auth and Database Reference
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
-
-    private void loadLogInView() {
-        Intent intent = new Intent(this, LogInActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            mFirebaseAuth.signOut();
-            loadLogInView();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**********************************************************************************
+     *
+     *************************************************************************************/
 
 }

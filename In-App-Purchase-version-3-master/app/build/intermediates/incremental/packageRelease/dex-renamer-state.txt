@@ -1,0 +1,4 @@
+#Sat Jan 14 16:51:10 EET 2017
+base.0=/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/transforms/dex/release/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/home/frkn/AndroidStudioProjects/In-App-Purchase-version-3-master/app/build/intermediates/transforms/dex/release/folders/1000/1f/main/classes.dex
