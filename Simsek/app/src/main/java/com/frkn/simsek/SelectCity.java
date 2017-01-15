@@ -1,13 +1,10 @@
 package com.frkn.simsek;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,39 +36,6 @@ import java.util.List;
 
 public class SelectCity extends DialogFragment {
 
-    String[] autoCompleteString = {
-            "AKRON/ABD",
-            "ALBANY/ABD",
-            "ALBUQUERQUE/ABD",
-            "ALEXANDRIA/ABD",
-            "ALLENTOWN/ABD",
-            "AMES/ABD",
-            "AMHERST/ABD",
-            "ANAHEIM/ABD",
-            "ANCHORAGE/ABD",
-            "ANDERSON/ABD",
-            "ANN-ARBOR/ABD",
-            "ANNAPOLIS/ABD",
-            "ARNOLD/ABD",
-            "ARUBA/ABD",
-            "ATLANTA/ABD",
-            "AUBURN/ABD",
-            "AUGUSTA/ABD",
-            "AUSTIN/ABD",
-            "BALTIMORE/ABD",
-            "BANNER-ELK/ABD",
-            "BATON-ROUGE/ABD",
-            "BAY-CITY/ABD",
-            "BEAUMONT/ABD",
-            "BENNINGTON/ABD",
-            "BENTON/ABD",
-            "BERKELEY/ABD",
-            "BETHESDA/ABD",
-            "BETHLEHEN/ABD",
-            "BINGHAMTON/ABD",
-            "BIRMINGHAM/ABD"
-    };
-
     ArrayAdapter<String> arrayAdapter;
     ListView list;
     List<String> myList = new ArrayList<String>();
@@ -84,6 +46,8 @@ public class SelectCity extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Functions.city_flag = false;
+        Functions.country_flag = false;
         readData();
         loadList(1, 0);
     }
@@ -108,8 +72,8 @@ public class SelectCity extends DialogFragment {
         }
     }
 
-    private void loadList(int type, int pos){
-        if(type == 1){
+    private void loadList(int type, int pos) {
+        if (type == 1) {
             try {
                 myList.clear();
                 JSONArray countries = data.getJSONArray("Countries");
@@ -117,7 +81,6 @@ public class SelectCity extends DialogFragment {
                     JSONObject jObject = countries.getJSONObject(i);
                     myList.add(jObject.getString("Name"));
                 }
-                arrayAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -125,7 +88,7 @@ public class SelectCity extends DialogFragment {
             try {
                 JSONArray cities = data.getJSONArray("Countries").getJSONObject(pos).getJSONArray("Cities");
                 List<String> temp = new ArrayList<String>();
-                for(int i=0;i<cities.length();i++)
+                for (int i = 0; i < cities.length(); i++)
                     temp.add(cities.getJSONObject(i).getString("name"));
                 myList.clear();
                 myList.addAll(new ArrayList<String>(temp));
@@ -137,7 +100,7 @@ public class SelectCity extends DialogFragment {
     }
 
     public void fillListView() {
-        arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, myList){
+        arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, myList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -160,25 +123,31 @@ public class SelectCity extends DialogFragment {
         fillListView();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String selected = (String) list.getItemAtPosition(position);
-                    if(!flag) {
-                        flag = true;
-                        pos1 = position;
-                        loadList(2, position);
-                    } else{
-                        pos2 = position;
-                        try {
-                            Functions.url = data.getJSONArray("Countries").getJSONObject(pos1).getJSONArray("Cities").getJSONObject(pos2).getString("link").toString();
-                            System.out.println(selected);
-                            System.out.println(Functions.url);
-                            getDialog().dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = (String) list.getItemAtPosition(position);
+                System.out.println(selected);
+                if (!flag) {
+                    flag = true;
+                    pos1 = position;
+                    Functions.country_flag = true;
+                    loadList(2, position);
+                } else {
+                    pos2 = position;
+                    try {
+                        Functions.city_flag = true;
+                        JSONObject country = data.getJSONArray("Countries").getJSONObject(pos1);
+                        Functions.countryname = country.getString("Name");
+                        JSONObject city = country.getJSONArray("Cities").getJSONObject(pos2);
+                        Functions.cityname = city.getString("name");
+                        Functions.cityid = city.getString("id");
+                        Functions.url = city.getString("link");
+                        getDialog().dismiss();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
+            }
         });
 
         getDialog().setTitle("DialogFragment Tutorial");

@@ -17,51 +17,26 @@ import java.io.IOException;
 
 public class TimeUpdater {
 
-    private ShowTimes showTimes;
-
+    public ShowTimes showTimes;
+    private MainActivity activity;
     private Context context;
-    private MainActivity mainActivity;
+
     private int flag;
 
-    private String baseUrl = "https://namazvakitleri.com.tr/";
-    private JSONObject parameters;
-
-    public TimeUpdater(int _flag, MainActivity act, Context _context, String _cityid, String _cityname, String _countryname) {
-        flag = _flag;
-        mainActivity = act;
-        context = _context;
-        parameters = new JSONObject();
-        try {
-            parameters.put("cityid", _cityid);
-            parameters.put("cityname", _cityname);
-            parameters.put("countryname", _countryname);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public TimeUpdater(int _flag, MainActivity _activity, Context _context) {
+        this.flag = _flag;
+        this.activity = _activity;
+        this.context = _context;
     }
 
-    public TimeUpdater(int _flag, Context _context, String _cityid, String _cityname, String _countryname){
-        flag = _flag;
-        context = _context;
-        parameters = new JSONObject();
-        try {
-            parameters.put("cityid", _cityid);
-            parameters.put("cityname", _cityname);
-            parameters.put("countryname", _countryname);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void run() {
+        new asyncTask().execute();
     }
 
-    public void run(){
-        new asyncTask().execute(parameters);
-    }
-
-    private void getTimes(String cityid, String cityname, String countryname) {
+    private void getTimes() {
         Log.d("ASYNC", "getTimes() starting..");
         org.jsoup.nodes.Document doc = null;
         try {
-            //String fullUrl = baseUrl + "sehir/" + cityid + "/" + cityname + "/" + countryname;
             doc = Jsoup.connect(Functions.url)
                     .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                     .referrer("http://www.google.com")
@@ -72,7 +47,7 @@ public class TimeUpdater {
             int startIndex = script.toString().indexOf("var times") + 12;
             int endIndex = script.toString().indexOf("var date") - 9;
             JSONObject info = new JSONObject(script.toString().substring(startIndex, endIndex));
-            Functions.saveData(context, info.toString());
+            Functions.saveData(info.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +56,7 @@ public class TimeUpdater {
         }
     }
 
-    private class asyncTask extends AsyncTask<JSONObject, Void, Void> {
+    private class asyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -89,13 +64,9 @@ public class TimeUpdater {
         }
 
         @Override
-        protected Void doInBackground(JSONObject... params) {
+        protected Void doInBackground(Void... params) {
             Log.d("asyncTask", "calling getTimes..");
-            try {
-                getTimes(params[0].getString("cityid"), params[0].getString("cityname"), params[0].getString("countryname"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            getTimes();
             return null;
         }
 
@@ -103,12 +74,13 @@ public class TimeUpdater {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.d("asyncTask", "times received..");
-            if(flag == 1){
-                if (showTimes != null && showTimes.handler != null) {
-                    showTimes.stopTimer();
+
+            if (flag == 1) {
+                if (showTimes == null) {
+                    showTimes = new ShowTimes(activity, context);
                     showTimes.updateUI();
-                } else{
-                    showTimes = new ShowTimes(mainActivity, context);
+                } else if (showTimes.handler != null) {
+                    showTimes.stopTimer();
                     showTimes.updateUI();
                 }
             }

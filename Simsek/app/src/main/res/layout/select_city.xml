@@ -6,16 +6,16 @@
     android:orientation="vertical">
 
     <AutoCompleteTextView
+
         android:id="@+id/auto_complete_textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Auto Complete TextView" />
+        android:layout_marginTop="2dp"
+        android:hint="Type country or city" />
 
     <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

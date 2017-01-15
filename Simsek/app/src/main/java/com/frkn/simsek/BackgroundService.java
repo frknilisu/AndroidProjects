@@ -1,5 +1,6 @@
 package com.frkn.simsek;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -59,8 +60,8 @@ public class BackgroundService extends Service {
         return null;
     }
 
-    private void send_notification(String show){
-        Log.d("NOTIFICATION", show);
+    private void send_notification(String show) {
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Intent resultIntent = new Intent(this, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,
@@ -69,13 +70,13 @@ public class BackgroundService extends Service {
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                         .setLargeIcon(bitmap)
-                        .setSmallIcon(getNotificationIcon())
+                        .setSmallIcon(R.drawable.ic_action_time)
                         .setAutoCancel(true)
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(show))
+                        .setPriority(Notification.PRIORITY_MAX)
                         .setContentTitle(show)
                         .setOngoing(true)
-                        .setContentIntent(resultPendingIntent)
-                        .setContentText(Functions.getCurrentTime());
+                        .setContentIntent(resultPendingIntent);
+
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

@@ -27,12 +27,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".SearchCity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
     </application>
 
 </manifest>

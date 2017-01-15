@@ -1,6 +1,5 @@
 package com.frkn.simsek;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -18,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by frkn on 07.01.2017.
@@ -43,19 +41,19 @@ public class ShowTimes {
     private String suankiVakit = "";
     private String remaining = "";
 
-    public ShowTimes(MainActivity a, Context c) {
-        mainActivity = a;
-        context = c;
+    public ShowTimes(MainActivity _activity, Context _context) {
+        mainActivity = _activity;
+        context = _context;
 
         changeTextFonts();
         initialize();
     }
 
-    public ShowTimes(Context c){
-        context = c;
+    public ShowTimes(Context _context) {
+        context = _context;
     }
 
-    public void updateUI(){
+    public void updateUI() {
         updateData();
         updateTimesUI();
         updateLocationUI();
@@ -113,9 +111,9 @@ public class ShowTimes {
         arr_layout[5] = (LinearLayout) mainActivity.findViewById(R.id.yatsiLay);
     }
 
-    public void updateData(){
+    public void updateData() {
         try {
-            times = Functions.getData(this.context);
+            times = Functions.getData();
             prayerTimes = times.getJSONArray("PrayerTimes");
             String curDate = Functions.getReverseCurrentDate();
             currentTimes = searchCurrentDate(curDate);
@@ -170,7 +168,7 @@ public class ShowTimes {
             String cityname = cityInfo.getString("name");
 
             JSONObject countryInfo = times.getJSONObject("CountryInfo");
-            String countryname = cityInfo.getString("name");
+            String countryname = countryInfo.getString("name");
 
             return cityname + "/" + countryname;
         } catch (JSONException e) {
@@ -198,13 +196,12 @@ public class ShowTimes {
 
     // Su anki namaz vaktinin layer ini boyayan method
     private void paintLayer(int ind) {
-        if(ind == 6){
-            arr_layout[ind-1].setBackgroundResource(R.color.ayrim);
+        if (ind == 6) {
+            arr_layout[ind - 1].setBackgroundResource(R.color.ayrim);
             for (int i = 0; i < 5; i++) {
                 arr_layout[i].setBackgroundResource(0);
             }
-        }
-        else{
+        } else {
             arr_layout[ind].setBackgroundResource(R.color.ayrim);
             for (int i = 0; i < 6; i++) {
                 if (i != ind) {
@@ -217,7 +214,7 @@ public class ShowTimes {
         arr_tv_map[14].setText(suankiVakit);
     }
 
-    private void suankiVakitUpdate(int ind){
+    private void suankiVakitUpdate(int ind) {
         // En ustteki TextView in guncellenmesi
         switch (ind) {
             case 0:
@@ -250,7 +247,7 @@ public class ShowTimes {
         handler.postDelayed(runnable, 0);
     }
 
-    protected void stopTimer(){
+    protected void stopTimer() {
         Log.d("Timer", "STOP");
         handler.removeCallbacks(runnable);
     }
@@ -263,14 +260,14 @@ public class ShowTimes {
                 updateUI();
             }
             try {
-                if(currentTimes == null || !currentTimes.getString("date").equals(Functions.getReverseCurrentDate())) {
+                if (currentTimes == null || !currentTimes.getString("date").equals(Functions.getReverseCurrentDate())) {
                     currentTimes = searchCurrentDate(Functions.getReverseCurrentDate());
                 }
-                if(currentTimes != null) {
+                if (currentTimes != null) {
                     int index = calcDiffInTime(currentTimes);
                     arr_tv_map[15].setText(remaining);
                     paintLayer(index);
-                    if(index == 6)
+                    if (index == 6)
                         makeBold(10, 11);
                     else
                         makeBold(2 * index, 2 * index + 1);
@@ -282,7 +279,9 @@ public class ShowTimes {
         }
     };
 
-    /*****************************  CALCULATIONS    ******************************************/
+    /*****************************
+     * CALCULATIONS
+     ******************************************/
 
     private int calcDiffInTime(JSONObject date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -312,7 +311,7 @@ public class ShowTimes {
                     return i;
                 }
             }
-            if(next == null)
+            if (next == null)
                 next = searchCurrentDate(Functions.getReverseNextXdaysDate(1));
             date1 = simpleDateFormat.parse(next.getString("imsak"));    //  bir sonraki günün imsak vaktini alıyor
             diffAr[0] = (date2.getTime() - simpleDateFormat.parse("24:00").getTime()) + (simpleDateFormat.parse("00:00").getTime() - date1.getTime());
@@ -351,7 +350,9 @@ public class ShowTimes {
     }
 
 
-    /***********************    BackgroundService functions     *****************************/
+    /***********************
+     * BackgroundService functions
+     *****************************/
 
     public String getNotificationMessage() {
         return notificationMessage;
@@ -359,9 +360,9 @@ public class ShowTimes {
 
     public void setNotificationMessage() {
         try {
-            if(currentTimes == null || !currentTimes.getString("date").equals(Functions.getReverseCurrentDate()))
+            if (currentTimes == null || !currentTimes.getString("date").equals(Functions.getReverseCurrentDate()))
                 currentTimes = searchCurrentDate(Functions.getReverseCurrentDate());
-            if(currentTimes != null) {
+            if (currentTimes != null) {
                 int index = calcDiffInTime(currentTimes);
                 suankiVakitUpdate(index);
                 notificationMessage = suankiVakit + remaining;
@@ -370,5 +371,6 @@ public class ShowTimes {
             e.printStackTrace();
         }
     }
+
 
 }

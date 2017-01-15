@@ -18,8 +18,8 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_action_settings"
+        android:id="@+id/action_sec"
+        android:icon="@drawable/ic_action_sec"
         android:orderInCategory="104"
         android:title="@string/app_name"
         app:showAsAction="always" />
